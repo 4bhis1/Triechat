@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{Name}}</title>
+</head>
+<body>
+    
+    room name :{{room}}
+    <br>
+    user name : {{user}}
+
+    <br><br>
+    Edit User name<br>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="User_name" /required>
+        <input type="submit" value="edit">
+    </form>
+    
+    <br>
+    Users List<br>
+    <ul>
+        {% for i in userlist %}
+            <li>{{i.user_name}}</li>
+        {% endfor %}
+    </ul>
+    
+
+
+    <br>
+    Rooms List<br>
+    <ul>
+        {% for i in roomlist %}
+            <li>
+                {{i.name}} --> {{i.admin}}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="user_password" /required>
+                    <input type="text" name="room_name" value="{{i.name}}">
+                    <input type="submit" value="go into the room">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <br>
+    Add room<br>
+    <form method="POST">
+        {% csrf_token %}
+        Room name: <input type="text" name="Room_name" /required><br>
+        password :<input type="password" name="Password" /required><br>
+        <input type="submit" value="Addroom">
+    </form>
+
+
+    <br>
+    <br>
+    Chat section<br>
+
+    <div>
+        <table>
+            <tr>
+                <th>Room</th>
+                <th>User</th>
+                <th>Message</th>
+                <th>File</th>
+                <th>Download</th>
+                <th>time</th>
+                <th>date</th>
+            </tr>
+
+            {% for i in message %}
+                <tr>
+                    <td>{{i.room}}</td>
+                    <td>{{i.user}}</td>
+                    <td>{{i.msg}}</td>
+                    <td><a herf="{{ i.file.url }}" target="_blank">{{i.file}}</a></td>
+                    <td><a herf="{{ i.file.url }}" download>Download</a></td>
+                    <td>{{i.time}}</td>
+                    <td>{{i.date}}</td>
+                </tr>
+            {% endfor %}
+            
+        </table>
+        
+    </div>
+    
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input type="file" name="media" accept="*">
+        <input type="text" name="msg">
+        <input type="submit" value="Send">
+
+    </form>
+
+</body>
+</html>
