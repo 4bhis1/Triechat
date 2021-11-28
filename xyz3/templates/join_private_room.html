@@ -1,24 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {% load static %}
 
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/style.css' %}"
-    />
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% load static %}
 
-    <script src="{% static 'js/audio.js' %}"></script>
-  </head>
-  <body>
-    <div align="center">
-      <h2>join Existing Room</h2>
-    </div>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %}" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/extStyle.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/particles.css' %}" />
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+  <script src="{% static 'js/audio.js' %}"></script>
+</head>
+
+<body>
+  <div id="particles-js">
+    <h2 class="headerPublic">Join an existing private room created by your friend
+    </h2>
 
     <div class="container">
+
       <form id="post-form" method="POST" action="check_join_room">
+        {% csrf_token %}
+        <div class="input-field col s6">
+          <input style="width: 300px; color: white;" type="text" name="Username" " id=" Username" class="validate">
+          <label for="username">Username</label>
+        </div>
+
+        <div class="input-field col s6">
+          <input style="width: 300px; color: white;" type="text" name="room_name" " id=" room_name" class="validate">
+          <label for="username">Room Name</label>
+        </div>
+
+
+        <div class="input-field col s6">
+          <input style="width: 300px; color: white;" type="password" name="password" " id=" password" class="validate">
+          <label for="username">Password</label>
+        </div>
+
+        <button class="waves-effect waves-light btn-large custom private-create" type="submit" value="Join Room" />
+        Join Room </button>
+      </form>
+
+
+      <!--       <form id="post-form" method="POST" action="check_join_room">
         {% csrf_token %}
         <label>Username</label>
         <input type="text" name="Username" id="Username" width="100px" />
@@ -27,7 +63,12 @@
         <label>password</label>
         <input type="text" name="password" id="password" width="100px" />
         <input type="submit" value="Join Room" />
-      </form>
+      </form> -->
     </div>
-  </body>
+</body>
+<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
+<script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+<script src="../static/scripts//home.js"></script>
+<script src="../static/scripts//particles.js"></script>
+
 </html>
