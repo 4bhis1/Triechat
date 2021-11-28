@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/room.css' %}" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h2>Welcome! {{username}}</h2>
+    <h1>{{room}}</h1>
+    <br>
+  
+  
+
+    <br>
+    
+      Rooms List<br>
+    <ul>
+        {% for i in roomlist %}
+        {{i.name}}
+        <form id="post-form" method="POST" action="check_join_room">
+        {% csrf_token %}
+        <input type="hidden" name="Username"value="{{username}}" width="100px" />
+        <input type="hidden" name="room_name" value= "{{i.name}}" width="100px" />
+        <label>password</label>
+        <input type="text" name="password" id="password" width="100px" />
+        <button type="submit" class="btn btn-primary"> Join Room </button>
+      </form>
+        {% endfor %}
+    </ul>
+
+    <div class="container">
+      {% for i in message %}
+        
+        </br>
+        <h3>{{i.user}}</h3>
+        <p>{{i.msg}}</p>
+        {% if i.file %}
+        <a href="{{i.file.url}}" download>{{i.file}}</a></br>
+
+        {% endif %}
+
+      
+      {% endfor %}
+
+      <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="file" name="file" accept="*" />
+        <input type="text" name="message" id="message" width="100px" />
+        <input type="submit" value="Send" />
+      </form>
+    </div>
+  </body>
+</html>
